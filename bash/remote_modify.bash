@@ -31,7 +31,7 @@ for ip in "${ip_array[@]}"; do
 
   # 单机测试,测试成功后去掉外层if
   if [[ "${ip}" == "192.168.0.163" ]]; then
-    if sshpass -p u18 ssh -o PreferredAuthentications=password -t u18@"${ip}" "echo u18 | sudo -S sed -i '3!b; /--no-block -o utf8/!s/--no-block/--no-block -o utf8/g' /lib/udev/rules.d/99-usbblock.rules"; then
+    if sshpass -p u18 ssh -o PreferredAuthentications=password -o StrictHostKeyChecking=no -t u18@"${ip}" "echo u18 | sudo -S sed -i '3!b; /--no-block -o utf8/!s/--no-block/--no-block -o utf8/g' /lib/udev/rules.d/99-usbblock.rules"; then
       echo -e "\e[1;32mClient ${ip} modify success.\e[0m"
       sshpass -p u18 ssh -o PreferredAuthentications=password -t u18@"${ip}" "echo u18 | sudo -S poweroff"
     else
